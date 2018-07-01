@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="main.entities.AccountInfoEntity">
+        <table name="account_info" schema="lab" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="20"/>
+                <generated-value strategy="AUTO" generator="increment"/>
+            </id>
+            <basic name="gmtCreate">
+                <column name="gmt_create" precision="-1"/>
+            </basic>
+            <basic name="gmtModified">
+                <column name="gmt_modified" precision="-1"/>
+            </basic>
+            <basic name="name">
+                <column name="name" length="30"/>
+            </basic>
+            <basic name="balance">
+                <column name="balance" precision="2"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
