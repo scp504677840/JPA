@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 配置自动扫描的包 -->
+    <context:component-scan base-package="main"/>
+
+    <!-- 加载本地数据库配置文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!-- 配置c3p0数据库连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${user}"/>
+        <property name="password" value="${password}"/>
+        <property name="jdbcUrl" value="${jdbcUrl}"/>
+        <property name="driverClass" value="${driverClass}"/>
+    </bean>
+
+    <!-- 配置entityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!-- 配置数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 配置JPA提供商的适配器，可以通过内部bean的方式配置 -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <!-- 配置实体类所在的包 -->
+        <property name="packagesToScan" value="main.entities"/>
+        <!-- 配置JPA的基本属性 -->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 配置JPA使用的事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- 配置支持注解事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
