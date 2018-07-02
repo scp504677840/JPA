@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="lab" transaction-type="RESOURCE_LOCAL">
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <mapping-file>main/entities/AccountInfoEntity.xml</mapping-file>
+        <mapping-file>main/entities/BookInfoEntity.xml</mapping-file>
+        <mapping-file>main/entities/BookStockEntity.xml</mapping-file>
+        <mapping-file>main/entities/ShopBookEntity.xml</mapping-file>
+        <mapping-file>main/entities/ShopInfoEntity.xml</mapping-file>
+        <class>main.entities.AccountInfoEntity</class>
+        <class>main.entities.BookInfoEntity</class>
+        <class>main.entities.BookStockEntity</class>
+        <class>main.entities.ShopBookEntity</class>
+        <class>main.entities.ShopInfoEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.0.101:3306/lab"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="scp15335747148"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+            <!-- 配置二级缓存 -->
+            <!--<property name="hibernate.cache.use_second_level_cache" value="true"/>-->
+            <!--<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.internal.EhcacheRegionFactory"/>-->
+            <!--<property name="hibernate.cache.use_query_cache" value="true"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>
